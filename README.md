@@ -11,4 +11,14 @@
 
 ## Demo: Android Emulator ##
 > Pixel 5 API Level 30
-
+1. Splash screen
+2. Implicit intent (e.g. browser)
+3. Explicit intent between activities
+4. [Retrofit](https://square.github.io/retrofit/) HTTP client with [Moshi](https://github.com/square/moshi) JSON parser
+5. [Coil](https://coil-kt.github.io/coil/) image loading (URI)
+6. API-get artists
+7. API-get artist details
+8. API-get artist artworks
+9. API-get artwork categories
+10. Jetpack DataStore (persistent)
+<img src="Pixel_5_API_30.gif">
