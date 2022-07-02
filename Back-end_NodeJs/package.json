@@ -1,0 +1,16 @@
+{
+  "name": "artsy-nodejs",
+  "version": "1.0.0",
+  "description": "Artsy by Menghan Wu.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Menghan Wu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  }
+}
