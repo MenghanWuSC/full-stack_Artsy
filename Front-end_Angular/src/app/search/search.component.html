@@ -1,0 +1,162 @@
+<div class="container px-body pb-5 mt-3 mb-5">
+    
+    <!-- Search Form -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="my-3">
+            <input type="text" class="form-control" formControlName="query" placeholder="Please enter an artist name." required>
+        </div>
+        <div class="text-center">
+            <button *ngIf="searchForm.controls['query'].value; else nullFormBlock" type="submit" id="button-search" class="mx-1">
+                Search
+                <!-- Spinner -->
+                <span *ngIf="click_submit" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+            <ng-template #nullFormBlock>
+                <button type="submit" id="button-search-disabled" class="mx-1" disabled>Search</button>
+            </ng-template>
+            <input type="reset" class="mx-1" id="button-clear" value="Clear" (click)="onClear()">
+        </div>
+    </form>
+   
+    <!-- Search Results -->
+    <div *ngIf="artists?.length" id="search-results">
+        <div id="carousel-results-artists" class="carousel slide p-3 my-3" data-bs-ride="carousel" data-bs-interval="false">
+            <div class="carousel-indicators">
+                <button *ngFor="let person of artists; index as i;" type="button" data-bs-target="#carousel-results-artists" [attr.data-bs-slide-to]="i" [attr.class]="i==0 ? 'active' : null" [attr.aria-current]="i==0 ? 'true' : null" [attr.aria-label]="'Slide '+(i+1)"></button>
+            </div>
+            <div class="carousel-inner">
+                <div *ngFor="let person of artists; index as i;" [attr.class]="i==0 ? 'carousel-item active' : 'carousel-item'" (click)="onDetail(person)">
+                    <img class="d-block w-100" [src]="person.thumbnail" [alt]="person.self">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 class="bg-secondary">{{ person.title }}</h5>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-results-artists" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-results-artists" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!--
+        <div class="card-group card-group-scroll my-3">
+            <div *ngFor="let person of artists" class="card" (click)="onDetail(person)">
+                <img class="card-img-top" [src]="person.thumbnail" [alt]="person.self">
+                <div class="card-body">
+                    <label class="card-title">{{ person.title }}</label>
+                </div>
+                <input type="hidden" name="artist_ID" [value]="person.self">
+            </div>
+        </div>
+        -->
+    </div>
+    <!-- Warning -->
+    <div *ngIf="null_artist" class="alert alert-danger my-3" role="alert">
+        No results.
+    </div>
+    <!-- Spinner -->
+    <div *ngIf="click_detail" class="text-center">
+        <div id="spinner-custom-detail" class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <!-- Search Details -->
+    <div *ngIf="details.name" id="search-details">
+        <!-- Nav-Pill -->
+        <ul class="nav nav-pills my-3" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-info-tab" data-bs-toggle="pill" data-bs-target="#pills-info" type="button" role="tab" aria-controls="pills-info" aria-selected="true">Artist Info</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-artwork-tab" data-bs-toggle="pill" data-bs-target="#pills-artwork" type="button" role="tab" aria-controls="pills-artwork" aria-selected="false">Artworks</button>
+            </li>
+        </ul>
+        <!-- Nav-Pill Content -->
+        <div class="tab-content my-3">
+            <!-- Artist Info -->
+            <div class="tab-pane fade show active" id="pills-info" role="tabpanel" aria-labelledby="pills-info">
+                <section>
+                    <div class="text-center my-3">
+                        <h4>{{ details.name }} ({{ details.birthday }} - {{ details.deathday }})</h4>
+                        <h5>{{ details.nationality }}</h5>
+                    </div>
+                    <p>{{ details.biography }}</p>
+                </section>
+            </div>
+            <!-- Artworks -->
+            <div class="tab-pane fade" id="pills-artwork" role="tabpanel" aria-labelledby="pills-artwork">
+                <!-- Artwork Cards -->
+                <div *ngIf="artworks?.length" class="row row-cols-1 row-cols-md-5 g-4">
+                    <div *ngFor="let product of artworks" class="col">
+                        <div class="card h-100 text-center">
+                            <img class="card-img-top" [src]="product.artwork_thumbnail" [alt]="product.artwork_ID">
+                            <div class="card-body">
+                                <label>{{ product.artwork_title }}</label>
+                                <label>{{ product.artwork_date }}</label>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <!-- Modal Trigger -->
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#modal-category" (click)="onGene(product)">Categories</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Warning -->
+                <div *ngIf="null_artwork" class="alert alert-danger my-3" role="alert">
+                    No artworks.
+                </div>
+            </div>
+        </div>
+
+        <!-- The Modal (Genes) -->
+        <div class="modal fade" id="modal-category" tabindex="-1" aria-labelledby="modal-category" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2 p-0">
+                                    <img class="img-fluid" [src]="clicked_artwork.artwork_thumbnail" [alt]="clicked_artwork.artwork_ID">
+                                </div>
+                                <div class="col">
+                                    <h5 class="modal-title">{{ clicked_artwork.artwork_title }}</h5>
+                                    <h5>{{ clicked_artwork.artwork_date }}</h5>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div *ngIf="genes?.length" class="row row-cols-1 row-cols-md-3 g-4">
+                            <div *ngFor="let category of genes" class="col">
+                                <div class="card h-100 text-center">
+                                    <img class="card-img-top" [src]="category.geng_thumbnail" [alt]="category.gene_name">
+                                    <div class="card-body p-0"></div>
+                                    <div class="card-footer p-0">
+                                        <label>{{ category.gene_name }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Spinner -->
+                        <div *ngIf="click_detail" class="text-center">
+                            <div id="spinner-custom-detail" class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <!-- Warning -->
+                        <div *ngIf="null_gene" class="alert alert-danger my-3" role="alert">
+                            No categories.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

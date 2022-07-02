@@ -1,0 +1,17 @@
+/* Page Footer */
+.footer {
+    background-color: #112B3C;
+}
+
+.footerLink > a {
+    display: block;
+    text-align: center;
+    color: white;
+    padding: 5px;
+}
+
+.footerLink > a > img {
+    width: 15px;
+    height: 15px;
+}
+/* __Page Footer */

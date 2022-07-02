@@ -1,0 +1,108 @@
+
+.px-body {
+    padding-left: 7rem !important;
+    padding-right: 7rem !important;
+}
+
+
+/* Search Form */
+#button-search {
+    background-color: #205375;
+    color: white;
+    border-style: none;
+    border-radius: 3px;
+}
+
+#button-search-disabled {
+    opacity: 0.5;
+    background-color: #205375;
+    color: white;
+    border-style: none;
+    border-radius: 3px; 
+}
+
+#button-clear {
+    background-color: #808080;
+    color: white;
+    border-style: none;
+    border-radius: 3px;
+}
+/* __Search Form */
+
+
+/* Search Results */
+
+#search-results > #carousel-results-artists {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+#search-results > .card-group.card-group-scroll {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+}
+
+#search-results .card-group.card-group-scroll > .card {
+    flex-basis: 19%;
+    max-width: 19%;
+    max-height: 19%;
+}
+
+#search-results .card > .card-body {
+    background-color: #205375;
+    color: white;
+}
+
+#search-results .card > .card-body:hover {
+    background-color: #112B3C;
+}
+*/
+
+/* __Search Results */
+
+
+/* Search Details */
+#spinner-custom-detail {
+    color: #205375;
+}
+
+#search-details .nav.nav-pills > .nav-item {
+    flex: 50%;            
+}
+
+#search-details .nav.nav-pills .nav-item > .nav-link {
+    color: #205375;
+}
+
+#search-details .nav.nav-pills .nav-item > .nav-link.active {
+    background-color: #205375;
+    color: white;
+}
+
+#search-details .nav.nav-pills #pills-info-tab {
+    width: 100%;
+}
+
+#search-details .nav.nav-pills #pills-artwork-tab {
+    width: 100%;
+}
+
+#search-details .tab-content #pills-artwork .row.row-cols-1.row-cols-md-5 .card > .card-footer {
+    border-style: none;
+}
+
+#search-details .tab-content #pills-artwork .row.row-cols-1.row-cols-md-5 .card .card-footer > button {
+    width: 100%;
+    background-color: #205375;
+    color: white;
+    border-style: none;
+    border-radius: 3px;
+}
+
+#search-details #modal-category .modal-body .card-footer {
+    background-color: white;
+    border-style: none;
+}
+/* __Search Details */
