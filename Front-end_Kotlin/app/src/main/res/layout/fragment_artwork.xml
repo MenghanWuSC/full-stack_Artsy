@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.artsy.myapplication.artist.ArtistViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_artwork_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".artist.ArtworkFragment">
+
+        <!-- MaterialCardView to display Affirmation image and text-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_artwork_01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_artwork_txt00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@{viewModel.artistArtworks[0].title}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/item_artwork_img00"
+                    android:layout_width="250dp"
+                    android:layout_height="210dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:clickable="true"
+                    android:contentDescription="@{viewModel.artistArtworks[0].id}"
+                    android:importantForAccessibility="no"
+                    android:onClick="clickArtworkGenes"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.artistArtworks[0].otherLinks.thumbnail.href}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_artwork_02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_artwork_01">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_artwork_txt01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@{viewModel.artistArtworks[1].title}"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/item_artwork_img01"
+                    android:layout_width="250dp"
+                    android:layout_height="210dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{viewModel.artistArtworks[1].otherLinks.thumbnail.href}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
